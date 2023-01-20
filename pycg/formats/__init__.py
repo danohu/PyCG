@@ -20,4 +20,5 @@
 #
 from .fasten import Fasten
 from .simple import Simple
+from .d2 import D2Output
 from .as_graph import AsGraph

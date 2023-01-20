@@ -30,3 +30,4 @@ class Simple(BaseFormatter):
         for node in output:
             output_cg[node] = list(output[node])
         return output_cg
+

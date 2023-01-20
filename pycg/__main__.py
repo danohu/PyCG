@@ -3,6 +3,7 @@ import sys
 import json
 import argparse
 
+import pycg.formats.d2
 from pycg.pycg import CallGraphGenerator
 from pycg import formats
 from pycg.utils.constants import CALL_GRAPH_OP, KEY_ERR_OP
@@ -71,12 +72,24 @@ def main():
         help="Output path",
         default=None
     )
+    parser.add_argument(
+        "--format",
+        type=str,
+        choices=['simple', 'd2'],
+        help="Output format",
+        default="simple"
+    )
 
     args = parser.parse_args()
 
     cg = CallGraphGenerator(args.entry_point, args.package,
                         args.max_iter, args.operation)
     cg.analyze()
+
+    if args.format == 'd2':
+        formatter = pycg.formats.d2.D2Output(cg)
+        formatter.generate()
+        return
 
     if args.operation == CALL_GRAPH_OP:
         if args.fasten:
